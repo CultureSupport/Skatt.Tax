@@ -1,0 +1,79 @@
+<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Metrics Terminal Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .glass { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(34, 197, 94, 0.2); }
+        .graph-line { stroke: #22c55e; stroke-width: 3; fill: none; }
+        .graph-area { fill: url(#grad1); }
+        .point { fill: #22c55e; cursor: pointer; transition: r 0.2s; }
+        .point:hover { r: 8; fill: #ffffff; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 md:p-8">
+
+    <div id="app" class="max-w-7xl mx-auto">
+        <header class="mb-10">
+            <h1 class="text-4xl font-light text-green-400">METRIC TERMINAL <span class="text-slate-500 text-xl font-bold">V.2.1</span></h1>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Form Input Section -->
+            <div class="glass p-6 rounded-2xl shadow-xl lg:col-span-1">
+                <h2 class="text-lg font-semibold mb-4 text-green-500">Tax Data Injection</h2>
+                <form @submit.prevent="submitData" class="space-y-4">
+                    <input v-model="input.val" type="number" placeholder="Tax Value (NOK)" class="w-full bg-slate-800 p-3 rounded-lg border border-slate-700 focus:border-green-500 outline-none">
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg">Process Signal</button>
+                </form>
+            </div>
+
+            <!-- Charting Section -->
+            <div class="glass p-8 rounded-3xl lg:col-span-2 shadow-2xl">
+                <h2 class="text-xl font-semibold mb-6">Tax Point Diversity Graph</h2>
+                <svg viewBox="0 0 800 200" class="w-full h-64">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#22c55e;stop-opacity:0.3" />
+                            <stop offset="100%" style="stop-color:#22c55e;stop-opacity:0" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M0 150 Q 200 50, 400 120 T 800 40 V 200 H 0 Z" class="graph-area" />
+                    <path d="M0 150 Q 200 50, 400 120 T 800 40" class="graph-line" />
+                    <!-- Anomaly Detection Points -->
+                    <circle v-for="p in points" :cx="p.x" :cy="p.y" r="5" class="point" @mouseover="hoverInfo = p.label" @mouseleave="hoverInfo = ''" />
+                </svg>
+                <div class="mt-4 text-sm text-green-400 font-mono italic">{{ hoverInfo }}</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, reactive } = Vue;
+        createApp({
+            setup() {
+                const input = reactive({ val: '' });
+                const hoverInfo = ref('');
+                const points = ref([
+                    { x: 100, y: 110, label: 'Anomaly: High Tax Volatility' },
+                    { x: 400, y: 120, label: 'Data Point: Standard Trade Flow' },
+                    { x: 600, y: 80, label: 'Anomaly: Tax Signal Shift' }
+                ]);
+
+                const submitData = () => {
+                    if(!input.val) return;
+                    points.value.push({ x: Math.random()*700 + 50, y: Math.random()*150 + 20, label: `New Entry: ${input.val} NOK` });
+                    input.val = '';
+                };
+
+                return { input, points, hoverInfo, submitData };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
+
