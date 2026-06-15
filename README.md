@@ -1,2 +1,3 @@
 # Skatt.Tax
-A engene to performance grow
+A Skatt & Tax in Metrics 
+to collect and uphold Tax 
