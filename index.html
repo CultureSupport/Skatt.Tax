@@ -1,6 +1,70 @@
-interpol investigation 
+<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Portal | Official</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .page { display: none; }
+        .page.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
 
+    <!-- Warning Wrapper -->
+    <div class="bg-red-800 text-white p-3 text-center flex items-center justify-center gap-2 font-bold shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+        <span>INTERPOL INVESTIGATION IN PROGRESS - TYSKLAND DIVISION</span>
+    </div>
 
----------
+    <!-- Header -->
+    <nav class="bg-white border-b border-gray-200">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-red-700"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                Network Portal
+            </h1>
+            <div class="flex gap-6">
+                <button onclick="showPage('home')" class="nav-btn hover:text-red-700 font-bold">Home</button>
+                <button onclick="showPage('investigation')" class="nav-btn hover:text-red-700">Investigation</button>
+                <button onclick="showPage('logs')" class="nav-btn hover:text-red-700">Logs</button>
+            </div>
+        </div>
+    </nav>
 
-ole olessiall is secure his intergration
+    <!-- Content -->
+    <main class="max-w-5xl mx-auto p-6 mt-10">
+        <div id="home" class="page active bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+            <h2 class="text-3xl font-extrabold mb-4">Welcome</h2>
+            <p class="text-lg">Official network access portal. All systems are operating under strict surveillance protocols.</p>
+        </div>
+
+        <div id="investigation" class="page bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+            <h2 class="text-3xl font-extrabold mb-4 text-red-800">Legal Notice</h2>
+            <p class="text-lg">NOTICE: The digital assets and network logs associated with this domain are currently under investigation by Interpol (Tyskland/Germany). Access restricted to authorized personnel only.</p>
+        </div>
+
+        <div id="logs" class="page bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+            <h2 class="text-3xl font-extrabold mb-4">Network Logs</h2>
+            <p class="text-lg">System integrity protocols are undergoing mandatory maintenance. All traffic is being monitored for compliance.</p>
+        </div>
+
+        <footer class="mt-12 text-center text-sm text-gray-500">
+            <p>Hilsen Ole Olessiall | Secure Network Environment</p>
+        </footer>
+    </main>
+
+    <script>
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.toggle('text-red-700', btn.textContent.toLowerCase() === id.toLowerCase());
+            });
+        }
+    </script>
+</body>
+</html>
